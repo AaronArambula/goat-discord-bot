@@ -1,16 +1,22 @@
 import discord
 import requests
 import json
+import random
+import requests
 
+TENOR_KEY = ""
 
 def get_lebron_gif():
     search_term = "LeBron James"
-    limit = 1
+    limit = 10  # request more results for variety
     r = requests.get(
         f"https://tenor.googleapis.com/v2/search?q={search_term}&key={TENOR_KEY}&limit={limit}&media_filter=gif"
     )
     data = r.json()
-    return data['results'][0]['media_formats']['gif']['url']
+    gifs = [result['media_formats']['gif']['url'] for result in data.get('results', [])]
+    if gifs:
+        return random.choice(gifs)
+    return None
 
 
 def get_meme():
@@ -29,12 +35,13 @@ class MyClient(discord.Client):
       await message.channel.send(get_meme())
     if message.content.startswith('$hello'):
       await message.channel.send('Hello!')
-    if message.content.startswith('$lebron',):
+    if message.content.startswith('$lebron'):
       await message.channel.send(get_lebron_gif())
-    if message.content.startswith('$goat',):
+    if message.content.startswith('$goat'):
       await message.channel.send(get_lebron_gif())
 
 intents = discord.Intents.default()
 intents.message_content = True
 
 client = MyClient(intents=intents)
+client.run('')
