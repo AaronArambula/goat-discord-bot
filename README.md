@@ -8,3 +8,4 @@
 - `$lebron` → Provides the luxury of watching THE GOAT in motion.
 - `$meme` → THE GOAT shares one of his favorite memes.
 - `$hello` → THE GOAT personally greets you.
+- `$diddy` → 😳
